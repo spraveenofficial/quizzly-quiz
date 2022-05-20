@@ -4,6 +4,7 @@ import Login from "./Pages/Login";
 import Navbar from "./Components/Navbar";
 import Signup from "./Pages/Signup";
 import Home from "./Pages/Home";
+import LeaderBoard from "./Pages/LeaderBoard";
 import { GuestRoutes, ProtectedRoutes } from "./helpers/routes";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,6 +31,7 @@ function App() {
           <Routes>
             <Route element={<ProtectedRoutes />}>
               <Route path="/" exact={true} element={<Home />} />
+              <Route path="leaderboard" element={<LeaderBoard/>}/>
             </Route>
             <Route element={<GuestRoutes />}>
               <Route path="/login" element={<Login />} />
