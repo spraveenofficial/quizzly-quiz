@@ -1,25 +1,37 @@
 import { motion } from "framer-motion";
-import Container from "../../Components/Container";
-import Input from "../../Components/Input";
+import Container from "../../Components/Container/index";
+import Input from "../../Components/Input/index";
 import { Link } from "react-router-dom";
 import animation from "../../helpers/animation";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Toast from "../../Components/Toast";
+import { login } from "../../Redux/Actions/user";
+import Loader from "../../Components/Loader";
+import { useEffect, useState } from "react";
+import { loadUser } from "../../Redux/Actions/auth";
 import { loginValidate } from "../../helpers/validate";
 import { Helmet } from "react-helmet";
 export default function Login() {
+  const dispatch = useDispatch();
   const [userInput, setUserInput] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState([]);
   const handleChange = (e) => {
     setUserInput({ ...userInput, [e.target.name]: e.target.value });
   };
+  const { loading, message, success } = useSelector((state) => state.login);
   const handleSubmit = () => {
     const validateResult = loginValidate(userInput);
     setErrors(validateResult);
     if (validateResult[0].success && validateResult[1].success) {
-      //   dispatch(login(userInput.email, userInput.password));
-      console.log(userInput);
+      dispatch(login(userInput.email, userInput.password));
     }
   };
+  useEffect(() => {
+    success === true &&
+      setTimeout(() => {
+        dispatch(loadUser());
+      }, 1000);
+  }, [success, dispatch]);
   return (
     <Container>
       <Helmet>
@@ -77,12 +89,13 @@ export default function Login() {
             onClick={handleSubmit}
             className="btn full-width mt-10 inherit-font loading-btn"
           >
-            Login
+            {loading && <Loader />} Login Now
           </button>
           <p className="text-center mt-10 text-white">
             New User? <Link to="/signup">Signup Now</Link>{" "}
           </p>
         </motion.div>
+        {message && <Toast message={message} success={success} />}
       </motion.div>
     </Container>
   );
