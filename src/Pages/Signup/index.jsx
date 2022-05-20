@@ -4,10 +4,17 @@ import Input from "../../Components/Input/index";
 import { Link } from "react-router-dom";
 import animation from "../../helpers/animation";
 import "./style.css";
-import { useState } from "react";
+import Toast from "../../Components/Toast";
+import { useDispatch, useSelector } from "react-redux";
+import { signup } from "../../Redux/Actions/user";
+import { useEffect, useState } from "react";
+import Loader from "../../Components/Loader";
 import { signupValidate } from "../../helpers/validate";
 import { Helmet } from "react-helmet";
+import { loadUser } from "../../Redux/Actions/auth";
 export default function Signup() {
+  const dispatch = useDispatch();
+  const { loading, message, success } = useSelector((state) => state.register);
   const [errors, setError] = useState([]);
   const [inputItem, setInputItem] = useState({
     name: "",
@@ -20,6 +27,7 @@ export default function Signup() {
       ...inputItem,
       [e.target.name]: e.target.value,
     });
+    // setError(signupValidate(inputItem));
   };
   const handleSubmit = async () => {
     const resultOfValidation = signupValidate(inputItem);
@@ -29,9 +37,15 @@ export default function Signup() {
       resultOfValidation[1].success &&
       resultOfValidation[2].success
     ) {
-      console.log("done");
+      dispatch(signup(inputItem.name, inputItem.email, inputItem.password));
     }
   };
+  useEffect(() => {
+    success === true &&
+      setTimeout(() => {
+        dispatch(loadUser());
+      }, 1000);
+  }, [success, dispatch]);
   return (
     <Container>
       <Helmet>
@@ -104,12 +118,13 @@ export default function Signup() {
             onClick={handleSubmit}
             className="btn full-width mt-10 inherit-font loading-btn"
           >
-            Signup Now
+            {loading && <Loader />}Signup Now
           </button>
           <p className="text-center mt-10 text-white">
             Already Registered? <Link to="/login">Login Now</Link>{" "}
           </p>
         </motion.div>
+        {message && <Toast message={message} success={success} />}
       </motion.div>
     </Container>
   );
