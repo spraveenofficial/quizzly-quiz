@@ -1,7 +1,7 @@
 
 <div align="center">
 
-<img src="/frontend/public/images/cc.jpg" alt="Quizzly" width="250px" height="250px" />
+<img src="/public/images/cc.jpg" alt="Quizzly" width="250px" height="250px" />
   
 # Quizzly Quiz App
 
@@ -62,6 +62,6 @@ Live Demo: [here](https://quizzly-quiz-five.vercel.app)
 
 ## Preview
 
-<img src="/frontend/public/images/demo.jpg" alt="Quizzly Quiz App" />
+<img src="/public/images/demo.jpg" alt="Quizzly Quiz App" />
 
 
