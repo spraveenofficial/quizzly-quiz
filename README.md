@@ -1,7 +1,7 @@
 
 <div align="center">
 
-<img src="/public/images/cc.jpg" alt="Quizzly" width="250px" height="250px" />
+<img src="/public/images/cc.jpg" alt="Quizzly" width="250px" height="100px" />
   
 # Quizzly Quiz App
 
