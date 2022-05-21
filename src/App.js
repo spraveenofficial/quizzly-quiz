@@ -10,6 +10,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingPage from "./Pages/LoadingPage";
 import { loadUser, getUser } from "./Redux/Actions/auth";
+import ProfilePage from "./Pages/ProfilePage";
+import Quiz from "./Pages/Quiz";
 function App() {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.auth);
@@ -31,7 +33,9 @@ function App() {
           <Routes>
             <Route element={<ProtectedRoutes />}>
               <Route path="/" exact={true} element={<Home />} />
-              <Route path="leaderboard" element={<LeaderBoard/>}/>
+              <Route path="leaderboard" element={<LeaderBoard />} />
+              <Route path="profile" element={<ProfilePage />} />
+              <Route path="/quiz/:id" element={<Quiz />} />
             </Route>
             <Route element={<GuestRoutes />}>
               <Route path="/login" element={<Login />} />
