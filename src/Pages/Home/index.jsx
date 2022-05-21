@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CategoryCard from "../../Components/CategoryCard";
-import Container from "../../Components/Container/index";
+import Container from "../../Components/Container";
 import { decryptHomeQuiz } from "../../helpers/decrypt";
 import "./style.css";
 import { motion } from "framer-motion";
